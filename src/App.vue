@@ -1,44 +1,39 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button @click="test()">el-button</el-button>
-    </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <el-container id="app" direction="vertical">
+      <MHeader></MHeader>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+  </el-container>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import article from '@/api/article'
+import MHeader from '@/components/MHeader'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  },
-  methods: {
-    // 由于返回的是promise，所以调用时也要使用async语法
-    async test () {
-      const res = await article.getList({ size: 20 })
-      console.log('app', res)
-    }
+    MHeader
   }
 }
 </script>
 
 <style>
+body {
+  margin: 0;
+  background-color: #eeeeee
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+main {
   margin-top: 60px;
 }
+
 </style>

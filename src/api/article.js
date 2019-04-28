@@ -5,10 +5,11 @@ export default {
   // 使用async语法糖避免多层嵌套函数，注意返回的也是个promise对象
   async getList ({ page = 1, size = 10 }) {
     const res = await request.get('/article/listAll', { params: { page, size } })
+    // 此处可对请求结果进行包装，然后直接返回数据
     console.log('get', res)
     return res.data
   },
-  add ({
+  async add ({
     author = '',
     content = '',
     cover = '',
@@ -18,11 +19,12 @@ export default {
     userId = 0,
     extension = ''
   }) {
-    return request.post('/article/insert', {
+    const res = request.post('/article/insert', {
       data: { author, content, cover, summary, title, time, userId, extension }
     })
+    return res.data
   },
-  update ({
+  async update ({
     author = '',
     content = '',
     cover = '',
@@ -32,11 +34,13 @@ export default {
     userId = 0,
     extension = ''
   }) {
-    return request.post('/article/update', {
+    const res = request.post('/article/update', {
       data: { author, content, cover, summary, title, time, userId, extension }
     })
+    return res.data
   },
-  delete ({ articleId = -1 }) {
-    return request.delete('/article/deleteById', { param: { articleId } })
+  async delete ({ articleId = -1 }) {
+    const res = request.delete('/article/deleteById', { param: { articleId } })
+    return res.data
   }
 }
